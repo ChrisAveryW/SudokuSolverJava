@@ -115,32 +115,12 @@ public class Sudoku {
         return null;
     }
 
-    public void deleteANumberFromAllConnectedUsableDueToFieldValueChange(Field field, int number) {//changed removedAll without knowing what it would do
+    public void deleteANumberFromAllConnectedUsableDueToFieldValueChange(Field field, int number) {
         for (Field[] line : allCoherentFieldsOfExactOnePosition(field)) {
             for (Field lineField : line) {
-                //lineField.usable.remove(Integer.valueOf(number));
                 lineField.usable.removeAll(Arrays.asList(number));
             }
         }
-    }
-
-    public void addANumberFromAllConnectedUsableDueToFieldValueChangeIfNotExistsAnyways(Field field, int number) {
-        for (Field[] line : allCoherentFieldsOfExactOnePosition(field)) {
-            for (Field lineField : line) {
-                if (numberExistsInLine(lineField.usable, number)) {
-                    lineField.usable.add(number);
-                }
-            }
-        }
-    }
-
-    private boolean numberExistsInLine(ArrayList<Integer> usable, int number) {
-        for (int numFromUsable : usable) {
-            if (number == numFromUsable) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void setValueOfField(Field field, int number) {
@@ -151,17 +131,16 @@ public class Sudoku {
     public void deleteValueOfField(Field field) {
         int deletedValue = field.value;
         field.value = 0;
-        //hier kommt das problem, was ist wenn es durch andere negativ beeinflusst ist und somit nicht eifach hinzugefügt werden kann (die Zahl)????
         for (Field[] line : allCoherentFieldsOfExactOnePosition(field)) {
             for (Field lineField : line) {
-                if (checkIfNumberIsUsable(lineField, deletedValue)) {
+                if (checkIfNumberIsUsable(lineField, deletedValue) && lineField.backtrack.contains(deletedValue) == false) {
                     lineField.usable.add(deletedValue);
                 }
             }
         }
     }
 
-    private boolean checkIfNumberIsUsable(Field field, int deletedValue) {
+    public boolean checkIfNumberIsUsable(Field field, int deletedValue) {
         for (Field[] line : allCoherentFieldsOfExactOnePosition(field)) {
             for (Field lineField : line) {
                 if(lineField.value == deletedValue){

@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     private static Sudoku game;
@@ -8,12 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
         initSudoku();
-        showSudoku();
         newSudokuValues();
         showSudoku();
         solveSudoku();
-        showSudoku();
-        showSudoku();
         showSudoku();
 
     }
@@ -57,26 +55,78 @@ public class Main {
         game.setValueOfField(game.sudokufield[8][7], 6);
     }
 
+    private static void newSudokuValues1(){
+        //row0
+        game.setValueOfField(game.sudokufield[0][0], 4);
+        game.setValueOfField(game.sudokufield[0][1], 1);
+        game.setValueOfField(game.sudokufield[0][4], 6);
+        game.setValueOfField(game.sudokufield[0][5], 5);
+        game.setValueOfField(game.sudokufield[0][8], 7);
+        //row1
+        game.setValueOfField(game.sudokufield[1][2], 6);
+        game.setValueOfField(game.sudokufield[1][5], 7);
+        game.setValueOfField(game.sudokufield[1][6], 4);
+        game.setValueOfField(game.sudokufield[1][7], 8);
+        //row2
+        game.setValueOfField(game.sudokufield[2][0], 2);
+        game.setValueOfField(game.sudokufield[2][2], 7);
+        game.setValueOfField(game.sudokufield[2][3], 4);
+        game.setValueOfField(game.sudokufield[2][4], 9);
+        game.setValueOfField(game.sudokufield[2][8], 6);
+        //________________________________________
+        //row3
+        game.setValueOfField(game.sudokufield[3][1], 6);
+        game.setValueOfField(game.sudokufield[3][4], 7);
+        game.setValueOfField(game.sudokufield[3][6], 1);
+        //row4
+        game.setValueOfField(game.sudokufield[4][0], 3);
+        game.setValueOfField(game.sudokufield[4][2], 1);
+        game.setValueOfField(game.sudokufield[4][3], 5);
+        game.setValueOfField(game.sudokufield[4][7], 7);
+        game.setValueOfField(game.sudokufield[4][8], 2);
+        //row5
+        game.setValueOfField(game.sudokufield[5][1], 9);
+        game.setValueOfField(game.sudokufield[5][4], 4);
+        game.setValueOfField(game.sudokufield[5][5], 2);
+        game.setValueOfField(game.sudokufield[5][6], 3);
+        game.setValueOfField(game.sudokufield[5][8], 8);
+        //--------------------------------------------
+        //row6
+        game.setValueOfField(game.sudokufield[6][0], 1);
+        game.setValueOfField(game.sudokufield[6][2], 8);
+        game.setValueOfField(game.sudokufield[6][3], 6);
+        game.setValueOfField(game.sudokufield[6][7], 2);
+        game.setValueOfField(game.sudokufield[6][8], 9);
+        //row7
+        game.setValueOfField(game.sudokufield[7][1], 2);
+        game.setValueOfField(game.sudokufield[7][4], 1);
+        game.setValueOfField(game.sudokufield[7][5], 8);
+        game.setValueOfField(game.sudokufield[7][6], 6);
+        game.setValueOfField(game.sudokufield[7][7], 4);
+        //row8
+        game.setValueOfField(game.sudokufield[8][0], 6);
+        game.setValueOfField(game.sudokufield[8][3], 3);
+        game.setValueOfField(game.sudokufield[8][7], 1);
+    }
+
     private static void solveSudoku() {
         while (game.isSolved() == false) {
-            boolean putNew = putNew();//puts new value in using list ! ! !
+            boolean putNew = putNew();//puts new value in changedList ! ! !
             if (putNew == false) {
                 backtrack();
             }
             if (game.changedFields.size() > 0) {
-                Field activeField = game.changedFields.get(game.changedFields.size() - 1);
+                Field activeField = getLastFromChangedFields();
                 if (activeField.usable.size() > 0) {
                     game.setValueOfField(activeField, activeField.usable.get(0));
                 } else {
                     backtrack();
-
                 }
             } else {
                 System.out.println("Internal error please recall the function: \"solveSudoku() in Main.java\"");
             }
-            showSudoku();
+           // showSudoku();
         }
-
     }
 
     private static boolean putNew() {
@@ -91,16 +141,33 @@ public class Main {
 
     private static void backtrack() {
         if (doesLastFieldInChangedListHaveUsableValues()) {
+            getLastFromChangedFields().backtrack.add(getLastFromChangedFields().value);
             setNextPossibleValueOfChangedList();
         } else {
+            addDeletedBacktrackValuesToUsable();
+            getLastFromChangedFields().backtrack.removeAll(beginningUsableValues());
             removeLastFromChangedFieldsAndDeleteValue();
             backtrack();
         }
     }
 
+    private static void addDeletedBacktrackValuesToUsable() {
+        for(int i : getLastFromChangedFields().backtrack){
+            if(game.checkIfNumberIsUsable(getLastFromChangedFields(),i)){
+                getLastFromChangedFields().usable.add(i);
+            }
+        }
+    }
+
     private static void setNextPossibleValueOfChangedList() {
-        //question here is if the own number still exists in here! Apparently it doesn't
-        game.setValueOfField(getLastFromChangedFields(),getLastFromChangedFields().usable.get(0));
+        if(getLastFromChangedFields().value == 0) {
+            game.setValueOfField(getLastFromChangedFields(), getLastFromChangedFields().usable.get(0));
+        }else{
+            int help = getLastFromChangedFields().value;
+            game.deleteValueOfField(getLastFromChangedFields());
+            getLastFromChangedFields().usable.removeAll(Arrays.asList(help));
+            game.setValueOfField(getLastFromChangedFields(), getLastFromChangedFields().usable.get(0));
+        }
     }
 
     private static void removeLastFromChangedFieldsAndDeleteValue() {

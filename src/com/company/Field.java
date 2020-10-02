@@ -7,6 +7,8 @@ public class Field{
     public int X;
     public int value;
     public ArrayList<Integer> usable;
+    public ArrayList<Integer> backtrack = new ArrayList<>();
+
     public Field(int Y, int X, int value, ArrayList usable) {
         this.X = X;
         this.Y = Y;
