@@ -16,7 +16,7 @@ public class Main {
 
     }
 
-    private static void newSudokuValues() {
+    private static void newSudokuValues2() {
         //row 1
         game.setValueOfField(game.sudokufield[0][1], 5);
         game.setValueOfField(game.sudokufield[0][4], 8);
@@ -55,58 +55,42 @@ public class Main {
         game.setValueOfField(game.sudokufield[8][7], 6);
     }
 
-    private static void newSudokuValues1(){
+    private static void newSudokuValues(){
         //row0
-        game.setValueOfField(game.sudokufield[0][0], 4);
-        game.setValueOfField(game.sudokufield[0][1], 1);
-        game.setValueOfField(game.sudokufield[0][4], 6);
-        game.setValueOfField(game.sudokufield[0][5], 5);
-        game.setValueOfField(game.sudokufield[0][8], 7);
+        game.setValueOfField(game.sudokufield[0][7], 4);
+        game.setValueOfField(game.sudokufield[0][8], 8);
         //row1
-        game.setValueOfField(game.sudokufield[1][2], 6);
-        game.setValueOfField(game.sudokufield[1][5], 7);
-        game.setValueOfField(game.sudokufield[1][6], 4);
-        game.setValueOfField(game.sudokufield[1][7], 8);
+        game.setValueOfField(game.sudokufield[1][1], 9);
+        game.setValueOfField(game.sudokufield[1][2], 8);
+        game.setValueOfField(game.sudokufield[1][3], 2);
+        game.setValueOfField(game.sudokufield[1][8], 7);
         //row2
-        game.setValueOfField(game.sudokufield[2][0], 2);
-        game.setValueOfField(game.sudokufield[2][2], 7);
         game.setValueOfField(game.sudokufield[2][3], 4);
-        game.setValueOfField(game.sudokufield[2][4], 9);
+        game.setValueOfField(game.sudokufield[2][4], 3);
         game.setValueOfField(game.sudokufield[2][8], 6);
         //________________________________________
         //row3
-        game.setValueOfField(game.sudokufield[3][1], 6);
-        game.setValueOfField(game.sudokufield[3][4], 7);
-        game.setValueOfField(game.sudokufield[3][6], 1);
+        game.setValueOfField(game.sudokufield[3][0], 9);
+        game.setValueOfField(game.sudokufield[3][1], 8);
         //row4
-        game.setValueOfField(game.sudokufield[4][0], 3);
-        game.setValueOfField(game.sudokufield[4][2], 1);
-        game.setValueOfField(game.sudokufield[4][3], 5);
-        game.setValueOfField(game.sudokufield[4][7], 7);
-        game.setValueOfField(game.sudokufield[4][8], 2);
+        game.setValueOfField(game.sudokufield[4][3], 3);
+        game.setValueOfField(game.sudokufield[4][4], 1);
         //row5
-        game.setValueOfField(game.sudokufield[5][1], 9);
-        game.setValueOfField(game.sudokufield[5][4], 4);
-        game.setValueOfField(game.sudokufield[5][5], 2);
-        game.setValueOfField(game.sudokufield[5][6], 3);
-        game.setValueOfField(game.sudokufield[5][8], 8);
+        game.setValueOfField(game.sudokufield[5][0], 7);
+        game.setValueOfField(game.sudokufield[5][7], 9);
+        game.setValueOfField(game.sudokufield[5][8], 4);
         //--------------------------------------------
         //row6
-        game.setValueOfField(game.sudokufield[6][0], 1);
-        game.setValueOfField(game.sudokufield[6][2], 8);
-        game.setValueOfField(game.sudokufield[6][3], 6);
-        game.setValueOfField(game.sudokufield[6][7], 2);
-        game.setValueOfField(game.sudokufield[6][8], 9);
+        game.setValueOfField(game.sudokufield[6][2], 9);
+        game.setValueOfField(game.sudokufield[6][6], 6);
         //row7
-        game.setValueOfField(game.sudokufield[7][1], 2);
-        game.setValueOfField(game.sudokufield[7][4], 1);
-        game.setValueOfField(game.sudokufield[7][5], 8);
-        game.setValueOfField(game.sudokufield[7][6], 6);
-        game.setValueOfField(game.sudokufield[7][7], 4);
+        game.setValueOfField(game.sudokufield[7][3], 7);
+        game.setValueOfField(game.sudokufield[7][5], 2);
         //row8
-        game.setValueOfField(game.sudokufield[8][0], 6);
-        game.setValueOfField(game.sudokufield[8][3], 3);
-        game.setValueOfField(game.sudokufield[8][7], 1);
+        game.setValueOfField(game.sudokufield[8][0], 5);
+        game.setValueOfField(game.sudokufield[8][2], 3);
+        game.setValueOfField(game.sudokufield[8][5], 4);
+        game.setValueOfField(game.sudokufield[8][6], 8);
     }
 
     private static void solveSudoku() {
